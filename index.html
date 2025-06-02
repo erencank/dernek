@@ -22,37 +22,6 @@
             font-family: 'Dancing Script', cursive;
         }
 
-        .hero-bg {
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACoCAMAAABt9SM9AAAAA1BMVEX/qsnDm2uHAAAAR0lEQVR4nO3BAQEAAACCIP+vbkhAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO8GxYgAAb0mUsoAAAAASUVORK5CYII='),
-                url('https://placehold.co/1200x800/FEFBF6/FEFBF6?text=+');
-            background-size: cover, cover;
-            background-position: center, center;
-            position: relative;
-        }
-
-        .hero-bg::before,
-        .hero-bg::after {
-            content: '';
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            opacity: 0.6;
-        }
-
-        .hero-bg::before {
-            top: 20px;
-            left: 20px;
-            background-image: url('https://placehold.co/200x200/FEFBF6/A9D6E5?text=🌸');
-        }
-
-        .hero-bg::after {
-            bottom: 20px;
-            right: 20px;
-            background-image: url('https://placehold.co/200x200/FEFBF6/F4C2C2?text=🌿');
-        }
-
         .card {
             background-color: white;
             border-radius: 1rem;
@@ -126,7 +95,14 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex-shrink-0">
-                    <a href="#home" class="font-title text-2xl text-gray-800">AJZ Zaandam</a>
+                    <a href="#home" class="flex items-center text-gray-800 group">
+                        <div class="relative mr-1">
+                            <img src="logo.png" alt="AJZ Zaandam Logo" class="h-10 w-auto mr-2">
+                        </div>
+                        <span
+                            class="ml-2 text-xs font-medium hidden md:inline-block tracking-wide uppercase text-gray-600 group-hover:text-blue-400 transition-colors duration-300">Alevitische
+                            Jongeren Zaandam</span>
+                    </a>
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
@@ -147,10 +123,9 @@
     <header id="home" class="hero-bg min-h-screen flex items-center justify-center text-center p-4">
         <div class="bg-white/80 backdrop-blur-sm p-8 md:p-12 rounded-2xl shadow-lg max-w-3xl mx-auto">
             <div class="mb-4">
-                <span class="text-7xl">🕊️</span>
-                <h2 class="font-title text-3xl text-gray-600 mt-2">Alevitische Jongeren Zaandam</h2>
+                <h2 class="text-xl text-gray-600 mt-1 tracking-wider uppercase">Alevitische Jongeren Zaandam</h2>
             </div>
-            <h1 class="font-title text-6xl md:text-8xl text-gray-800 my-4">Seizoensafsluiting</h1>
+            <h1 class="font-title text-5xl md:text-7xl text-gray-700 my-6">Seizoensafsluiting</h1>
             <p class="text-xl text-gray-600 mt-2 mb-8">Sezon kapanışına davetlisiniz!</p>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-2xl mx-auto">
@@ -342,8 +317,19 @@
 
     <footer class="bg-gray-800 text-white py-8">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="font-title text-2xl">AJZ Zaandam</p>
-            <p class="mt-2 text-gray-400">© 2025 | Alle rechten voorbehouden.</p>
+            <a href="#home" class="flex items-center justify-center text-white group mb-2">
+                <div class="relative mr-1">
+                    <span class="text-xl group-hover:text-blue-400 transition-colors duration-300">🕊️</span>
+                    <span
+                        class="text-xl transform scale-x-[-1] -ml-2 inline-block group-hover:text-blue-400 transition-colors duration-300">🕊️</span>
+                </div>
+                <span
+                    class="font-title text-2xl ml-1 group-hover:text-blue-400 transition-colors duration-300">AJZ</span>
+                <span
+                    class="ml-2 text-xs font-medium hidden sm:inline-block tracking-wide uppercase group-hover:text-blue-400 transition-colors duration-300">Alevitische
+                    Jongeren Zaandam</span>
+            </a>
+            <p class="text-sm text-gray-400">© 2025 | Alle rechten voorbehouden.</p>
         </div>
     </footer>
 

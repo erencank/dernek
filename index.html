@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="nl" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJZ Zaandam | Seizoensafsluiting 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #FEFBF6;
+        }
+
+        .font-title {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .hero-bg {
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACoCAMAAABt9SM9AAAAA1BMVEX/qsnDm2uHAAAAR0lEQVR4nO3BAQEAAACCIP+vbkhAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO8GxYgAAb0mUsoAAAAASUVORK5CYII='),
+                url('https://placehold.co/1200x800/FEFBF6/FEFBF6?text=+');
+            background-size: cover, cover;
+            background-position: center, center;
+            position: relative;
+        }
+
+        .hero-bg::before,
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.6;
+        }
+
+        .hero-bg::before {
+            top: 20px;
+            left: 20px;
+            background-image: url('https://placehold.co/200x200/FEFBF6/A9D6E5?text=🌸');
+        }
+
+        .hero-bg::after {
+            bottom: 20px;
+            right: 20px;
+            background-image: url('https://placehold.co/200x200/FEFBF6/F4C2C2?text=🌿');
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+            max-width: 300px;
+            margin: auto;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+                max-width: 350px;
+            }
+        }
+
+        nav.active {
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-link.active {
+            color: #4A5568;
+            /* Tailwind gray-700 */
+            font-weight: 700;
+        }
+
+        .timeline-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            /* 32px */
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1rem;
+            /* 16px */
+            height: 1rem;
+            /* 16px */
+            border-radius: 9999px;
+            /* rounded-full */
+            border-width: 4px;
+            border-color: white;
+            /* Tailwind white */
+        }
+    </style>
+</head>
+
+<body class="text-gray-700">
+
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <a href="#home" class="font-title text-2xl text-gray-800">AJZ Zaandam</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#home"
+                            class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-gray-900">Overzicht</a>
+                        <a href="#activiteiten"
+                            class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-gray-900">Activiteiten</a>
+                        <a href="#menu"
+                            class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-gray-900">Menu</a>
+                        <a href="#locatie"
+                            class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-gray-900">Locatie</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header id="home" class="hero-bg min-h-screen flex items-center justify-center text-center p-4">
+        <div class="bg-white/80 backdrop-blur-sm p-8 md:p-12 rounded-2xl shadow-lg max-w-3xl mx-auto">
+            <div class="mb-4">
+                <span class="text-7xl">🕊️</span>
+                <h2 class="font-title text-3xl text-gray-600 mt-2">Alevitische Jongeren Zaandam</h2>
+            </div>
+            <h1 class="font-title text-6xl md:text-8xl text-gray-800 my-4">Seizoensafsluiting</h1>
+            <p class="text-xl text-gray-600 mt-2 mb-8">Sezon kapanışına davetlisiniz!</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-2xl mx-auto">
+                <div class="flex items-center space-x-3">
+                    <span class="text-2xl">🗓️</span>
+                    <div>
+                        <p class="font-bold">Datum</p>
+                        <p>Zondag 8 juni 2025</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <span class="text-2xl">⏰</span>
+                    <div>
+                        <p class="font-bold">Tijd</p>
+                        <p>Vanaf 13:00 uur</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <span class="text-2xl">🎟️</span>
+                    <div>
+                        <p class="font-bold">Entree</p>
+                        <p>€15,- per persoon</p>
+                    </div>
+                </div>
+            </div>
+
+            <p class="mt-8 text-lg font-semibold text-gray-700">Een dag vol yiyecek, içecek ve oyunlar voor jong en oud!
+            </p>
+        </div>
+    </header>
+
+    <main>
+        <section id="activiteiten" class="py-20 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold">Programma & Activiteiten</h2>
+                    <p class="text-lg text-gray-500 mt-2">Ontdek wat er allemaal te doen is voor jong en oud!</p>
+                </div>
+
+                <div class="mb-16">
+                    <h3 class="text-2xl font-bold text-center mb-8">Tijdlijn van de Dag</h3>
+                    <div class="relative max-w-3xl mx-auto">
+                        <div class="absolute left-1/2 top-0 h-full w-0.5 bg-gray-200"></div>
+
+                        <div class="timeline-item">
+                            <div class="w-1/2 pr-8 text-right">
+                                <p class="bg-green-100 text-green-800 font-bold p-2 rounded-lg inline-block">13:00 uur
+                                </p>
+                                <p class="mt-2 text-lg">Inloop & Welkom</p>
+                            </div>
+                            <div class="w-1/2"></div>
+                            <div class="timeline-dot bg-green-500"></div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="w-1/2"></div>
+                            <div class="w-1/2 pl-8 text-left">
+                                <p class="bg-yellow-100 text-yellow-800 font-bold p-2 rounded-lg inline-block">13:30 uur
+                                </p>
+                                <p class="mt-2 text-lg">Start van de spelletjes en activiteiten</p>
+                                <p class="text-sm text-gray-500">(Doorlopend)</p>
+                            </div>
+                            <div class="timeline-dot bg-yellow-500"></div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="w-1/2 pr-8 text-right">
+                                <p class="bg-pink-100 text-pink-800 font-bold p-2 rounded-lg inline-block">14:00 uur</p>
+                                <p class="mt-2 text-lg">Eerste dansoptreden van de kindergroep</p>
+                            </div>
+                            <div class="w-1/2"></div>
+                            <div class="timeline-dot bg-pink-500"></div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="w-1/2"></div>
+                            <div class="w-1/2 pl-8 text-left">
+                                <p class="bg-blue-100 text-blue-800 font-bold p-2 rounded-lg inline-block">16:00 uur</p>
+                                <p class="mt-2 text-lg">Tweede spetterende dansshow</p>
+                            </div>
+                            <div class="timeline-dot bg-blue-500"></div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="w-1/2 pr-8 text-right">
+                                <p class="bg-purple-100 text-purple-800 font-bold p-2 rounded-lg inline-block">17:00 uur
+                                </p>
+                                <p class="mt-2 text-lg">Prijsuitreiking spelletjes</p>
+                            </div>
+                            <div class="w-1/2"></div>
+                            <div class="timeline-dot bg-purple-500"></div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="w-1/2"></div>
+                            <div class="w-1/2 pl-8 text-left">
+                                <p class="bg-red-100 text-red-800 font-bold p-2 rounded-lg inline-block">18:00 uur</p>
+                                <p class="mt-2 text-lg">Gezamenlijk eten</p>
+                            </div>
+                            <div class="timeline-dot bg-red-500"></div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="w-1/2 pr-8 text-right">
+                                <p class="bg-gray-100 text-gray-800 font-bold p-2 rounded-lg inline-block">20:00 - 21:00
+                                    uur</p>
+                                <p class="mt-2 text-lg">Gezellig napraten & Afronding</p>
+                            </div>
+                            <div class="w-1/2"></div>
+                            <div class="timeline-dot bg-gray-500"></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-bold text-center mb-6">Doorlopende Activiteiten</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="card p-6 text-center">
+                        <span class="text-5xl">🎨</span>
+                        <h4 class="text-xl font-bold mt-4 mb-2">Creatief & Spel</h4>
+                        <p>Laat je schminken, leef je uit met stoepkrijt, maak je eigen vlieger of geniet van onze
+                            bellenblaasmachine!</p>
+                    </div>
+                    <div class="card p-6 text-center">
+                        <span class="text-5xl">🏃‍♂️</span>
+                        <h4 class="text-xl font-bold mt-4 mb-2">Spel & Competitie</h4>
+                        <p>Doe mee met de klassiekers: zaklopen, de hilarische sponsrace, koekhappen en een spannend
+                            potje touwtrekken.</p>
+                    </div>
+                    <div class="card p-6 text-center">
+                        <span class="text-5xl">🎲</span>
+                        <h4 class="text-xl font-bold mt-4 mb-2">En nog meer!</h4>
+                        <p>Gedurende de dag zijn er allerlei spelletjes te spelen met onze reuze dobbelsteen en
+                            speelpionnen. Plezier gegarandeerd!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="menu" class="py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold">Eten & Drinken</h2>
+                    <p class="text-lg text-gray-500 mt-2">Een voorproefje van wat onze keuken te bieden heeft.</p>
+                </div>
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="w-full md:w-1/2">
+                        <h3 class="text-2xl font-bold mb-6">Hartige Gerechten</h3>
+                        <ul class="space-y-4">
+                            <li class="card p-4">Patlıcan Köfte met Pilav</li>
+                            <li class="card p-4">Gekruide Kippenvleugels met Aardappeltjes</li>
+                            <li class="card p-4">Traditionele Sigara Böreği</li>
+                            <li class="card p-4">Frisse Russische Salade & Aardappelsalade</li>
+                        </ul>
+                        <h3 class="text-2xl font-bold mt-8 mb-6">Zoete Afsluiters</h3>
+                        <ul class="space-y-4">
+                            <li class="card p-4">Huisgemaakte Revani</li>
+                            <li class="card p-4">Zachte Sütlaç (Rijstepap)</li>
+                            <li class="card p-4">Verfrissende Fruitsalade</li>
+                        </ul>
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <div class="chart-container">
+                            <canvas id="foodChart"></canvas>
+                        </div>
+                        <p class="text-center mt-4 text-gray-600">Een heerlijke balans tussen hartig en zoet, met liefde
+                            bereid!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="locatie" class="py-20 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl font-bold">Locatie & Route</h2>
+                <p class="text-lg text-gray-500 mt-2 mb-8">We hopen je daar te zien!</p>
+                <div class="card max-w-lg mx-auto p-8">
+                    <p class="text-2xl mb-2">📍</p>
+                    <p class="text-xl font-semibold">Ds. Martin Luther Kingweg 155</p>
+                    <p class="text-xl mb-6">1503 KW, Zaandam</p>
+                    <a href="https://maps.google.com/?q=Ds.+Martin+Luther+Kingweg+155,1503KW+Zaandam" target="_blank"
+                        class="inline-block bg-blue-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-600 transition-colors">
+                        Open in Google Maps
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="font-title text-2xl">AJZ Zaandam</p>
+            <p class="mt-2 text-gray-400">© 2025 | Alle rechten voorbehouden.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const foodData = {
+                labels: ['Hartig', 'Zoet'],
+                datasets: [{
+                    label: 'Verdeling van gerechten',
+                    data: [4, 3],
+                    backgroundColor: [
+                        'rgba(244, 194, 194, 0.8)', // Light Pink
+                        'rgba(169, 214, 229, 0.8)'  // Light Blue
+                    ],
+                    borderColor: [
+                        'rgba(244, 194, 194, 1)',
+                        'rgba(169, 214, 229, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            const foodChartConfig = {
+                type: 'doughnut',
+                data: foodData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                color: '#4A5568', // Tailwind gray-700
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Menu Verhouding',
+                            color: '#4A5568', // Tailwind gray-700
+                            font: {
+                                size: 16
+                            }
+                        }
+                    }
+                },
+            };
+
+            const foodChart = new Chart(
+                document.getElementById('foodChart'),
+                foodChartConfig
+            );
+
+            const navbar = document.getElementById('navbar');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section[id], header[id]');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('active');
+                } else {
+                    navbar.classList.remove('active');
+                }
+
+                let currentSectionId = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 70) { // 70 is a bit more than navbar height
+                        currentSectionId = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === currentSectionId) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
